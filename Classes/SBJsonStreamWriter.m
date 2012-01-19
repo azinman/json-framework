@@ -225,6 +225,9 @@ static NSNumber *kNegativeInfinity;
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		return [self writeNull];
 
+	} else if (o == nil) {
+		return [self writeNull];
+
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 

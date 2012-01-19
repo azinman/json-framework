@@ -85,7 +85,10 @@
     streamWriter.delegate = accumulator;
 	
 	BOOL ok = NO;
-	if ([object isKindOfClass:[NSDictionary class]])
+  if (object == nil)
+    ok = [streamWriter writeNull];
+    
+	else if ([object isKindOfClass:[NSDictionary class]])
 		ok = [streamWriter writeObject:object];
 	
 	else if ([object isKindOfClass:[NSArray class]])
