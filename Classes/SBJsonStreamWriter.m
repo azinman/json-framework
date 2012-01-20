@@ -32,12 +32,14 @@
 
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
+#import "ISO8601DateFormatter.h""
 
 static NSNumber *kNotANumber;
 static NSNumber *kTrue;
 static NSNumber *kFalse;
 static NSNumber *kPositiveInfinity;
 static NSNumber *kNegativeInfinity;
+static ISO8601DateFormatter *formatter = nil;
 
 
 @implementation SBJsonStreamWriter
@@ -227,7 +229,14 @@ static NSNumber *kNegativeInfinity;
 
 	} else if (o == nil) {
 		return [self writeNull];
-
+  
+  } else if ([o isKindOfClass:[NSDate class]]) {
+    if (formatter == nil) {
+      formatter = [[ISO8601DateFormatter alloc] init];
+      formatter.defaultTimeZone = [NSTimeZone timeZoneForSecondsFromGMT:+0];
+    }
+    return [self writeString:[formatter stringFromDate:o]];
+    
 	} else if ([o respondsToSelector:@selector(proxyForJson)]) {
 		return [self writeValue:[o proxyForJson]];
 
