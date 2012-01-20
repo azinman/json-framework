@@ -233,6 +233,7 @@ static ISO8601DateFormatter *formatter = nil;
   } else if ([o isKindOfClass:[NSDate class]]) {
     if (formatter == nil) {
       formatter = [[ISO8601DateFormatter alloc] init];
+      formatter.includeTime = YES;
       formatter.defaultTimeZone = [NSTimeZone timeZoneForSecondsFromGMT:+0];
     }
     return [self writeString:[formatter stringFromDate:o]];
