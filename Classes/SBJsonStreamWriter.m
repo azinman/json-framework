@@ -33,6 +33,7 @@
 #import "SBJsonStreamWriter.h"
 #import "SBJsonStreamWriterState.h"
 #import "ISO8601DateFormatter.h"
+#import "NSUUID.h"
 
 static NSNumber *kNotANumber;
 static NSNumber *kTrue;
@@ -227,6 +228,9 @@ static ISO8601DateFormatter *formatter = nil;
 	} else if ([o isKindOfClass:[NSNull class]]) {
 		return [self writeNull];
 
+  } else if ([o isKindOfClass:[NSUUID class]]) {
+    return [self writeString:[o stringValue]];
+    
 	} else if (o == nil) {
 		return [self writeNull];
   
