@@ -231,6 +231,9 @@ static ISO8601DateFormatter *formatter = nil;
   } else if ([o isKindOfClass:[NSUUID class]]) {
     return [self writeString:[o stringValue]];
     
+  } else if ([o isKindOfClass:[NSURL class]]) {
+    return  [self writeString:((NSURL *)o).absoluteString];
+    
 	} else if (o == nil) {
 		return [self writeNull];
   
